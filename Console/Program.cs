@@ -1,42 +1,53 @@
-﻿class Campuses
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Campuses
 {
     static void Main(string[] args)
     {
+        // Call methods for each question
         question2_1();
         question2_2();
     }
 
+    // Method to address question 2.1
     private static void question2_1()
     {
-        string[] campuses = {"Midrand", "Pretoria", "Bedfordview", "Vanderbijlpark", "Potchefstroom", "Durban", "East London", "Nelson Mandela Bay", "Bloemfontein", "Mbombela", "Tyger valley", "Claremont"};
+        // Array of Eduvos campuses
+        string[] campuses = { "Midrand", "Pretoria", "Bedfordview", "Vanderbijlpark", "Potchefstroom", 
+            "Durban", "East London", "Nelson Mandela Bay", "Bloemfontein", "Mbombela", "Tyger valley", "Claremont" };
 
+        // Print the list of campuses
         Console.WriteLine("Eduvos Campuses List");
-        for (int i = 0; i < campuses.Length; i++)
+        foreach (string campus in campuses)
         {
-            Console.WriteLine(campuses[i]);
+            Console.WriteLine(campus);
         }
 
-        Console.Write("\n");
-        Console.WriteLine("Eduvos Campuses grouped together:");
-        Console.Write("\n");
+        // Group campuses into groups of 4
+        Console.WriteLine("\nEduvos Campuses grouped together:");
+        var groupedCampuses = campuses.Select((campus, index) => new { Campus = campus, Group = index / 4 })
+                      .GroupBy(x => x.Group)
+                      .Select(group => group.Select(x => x.Campus).ToList());
 
-        var result = from i in Enumerable.Range(0, campuses.Length)
-                     group campuses[i] by i / 3;
-
-        foreach (var campusesGroup in result)
+        foreach (var group in groupedCampuses)
         {
-            foreach (var campus in campusesGroup)
+            foreach (var campus in group)
             {
-                Console.Write($"{campus}    ");
+                Console.Write($"{campus}   ");
             }
-            Console.Write("\n");
+            Console.WriteLine();
         }
     }
 
+    // Method to address question 2.2
     private static void question2_2()
     {
+        // Dictionary to store campus and course information
         SortedDictionary<string, string> campusDictionary = new SortedDictionary<string, string>();
 
+        // Add campus and course pairs
         campusDictionary.Add("Midrand", "BSc Computer Science");
         campusDictionary.Add("Pretoria", "BSc IT in Robotics");
         campusDictionary.Add("Bedfordview", "BSc IT in Software Engineering");
@@ -50,19 +61,17 @@
         campusDictionary.Add("Tyger valley", "BSc IT in Robotics");
         campusDictionary.Add("Claremont", "BSc IT in Security and Network Engineering");
 
+        // Print the campus and course information
         foreach (KeyValuePair<string, string> pair in campusDictionary)
         {
             Console.WriteLine($"{pair.Key}, {pair.Value}");
         }
 
-        Console.WriteLine($"The totalnumber of campuses of Eduvos is: {campusDictionary.Count}");
+        // Print the total number of campuses
+        Console.WriteLine($"The total number of campuses of Eduvos is: {campusDictionary.Count}");
 
-        int i = 1;
-        if (campusDictionary.ContainsValue("BSc IT in Software Engineering"))
-        {            
-            i++;
-        }
-
-        Console.WriteLine($"Number of campuses offering BSc IT in Software Engineering is: {i}");
+        // Count campuses offering BSc IT in Software Engineering
+        int softwareEngineeringCampuses = campusDictionary.Values.Count(course => course == "BSc IT in Software Engineering");
+        Console.WriteLine($"Number of campuses offering BSc IT in Software Engineering is: {softwareEngineeringCampuses}");
     }
 }
