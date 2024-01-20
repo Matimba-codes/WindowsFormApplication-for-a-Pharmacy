@@ -1,4 +1,4 @@
-namespace Matimba_Kubayi_8LC3G3SF9_ITPCA2_B12_Project_2
+namespace Matimba_Kubayi_Project_2
 {
     public partial class Form1 : Form
     {
@@ -9,11 +9,11 @@ namespace Matimba_Kubayi_8LC3G3SF9_ITPCA2_B12_Project_2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string filePath = @"C:\Users\kubay\Documents\University\BSC IT\ITPCA2-12\Block 2\MedicineList.txt";
+            string filePath = @"MedicineList.txt";
             checkedListBox1.Items.AddRange(System.IO.File.ReadAllLines(filePath));
 
             Random number = new Random();
-            string[] word = File.ReadAllLines(@"C:\Users\kubay\Documents\University\BSC IT\ITPCA2-12\Block 2\MedicineList.txt");
+            string[] word = File.ReadAllLines(@"MedicineList.txt");
             label4.Text = $"Special: {number.Next(1, 50)}% discount on {word[new Random().Next(word.Length)]}";
         }
 
@@ -24,7 +24,7 @@ namespace Matimba_Kubayi_8LC3G3SF9_ITPCA2_B12_Project_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            StreamWriter writer = new StreamWriter(@"C:\Users\kubay\Documents\University\BSC IT\ITPCA2-12\Block 2\OrderList.txt");
+            StreamWriter writer = new StreamWriter(@"OrderList.txt");
             writer.WriteLine("Order form:\n",checkedListBox1.CheckedItems);
 
             MessageBox.Show("Order Saved", "Message", MessageBoxButtons.OK);

@@ -3,7 +3,6 @@
     static void Main(string[] args)
     {
         question2_1();
-
         question2_2();
     }
 
